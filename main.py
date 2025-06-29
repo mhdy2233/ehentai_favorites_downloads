@@ -107,7 +107,7 @@ def detection(gid,token,clarity,use_gp):
     soup = BeautifulSoup(response.text, 'html.parser')
     free = soup.find_all('strong')
     if not free[0].text == "Free!":
-        url = f"https://{"e-hentai" if domain == "1" else "exhentai"}.org/archiver.php?gid=3285545&token=7745b19f1e"
+        url = f"https://{('e-hentai' if domain == '1' else 'exhentai')}.org/archiver.php?gid=3285545&token=7745b19f1e"
         response = requests.get(url, cookies=cookie)
         soup = BeautifulSoup(response.text, 'html.parser')
         for x in soup.find_all('p'):
