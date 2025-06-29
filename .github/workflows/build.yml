@@ -1,13 +1,14 @@
-name: Build EXE with PyInstaller
+name: Build Python Executable
 
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
 
 jobs:
-  build:
-    runs-on: windows-latest
+  build-linux:
+    runs-on: ubuntu-latest
+    name: Build on Linux
 
     steps:
     - uses: actions/checkout@v3
@@ -15,24 +16,44 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.10"
+        python-version: '3.10'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pyinstaller
 
-    - name: Build with PyInstaller
-      run: |
-        pyinstaller --onefile main.py
+    - name: Build executable
+      run: pyinstaller --onefile main.py
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
+    - name: Upload Linux binary
+      uses: softprops/action-gh-release@v1
       with:
-        name: my-program
-        path: dist/main.exe
+        files: dist/main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Publish to Release
+  build-windows:
+    runs-on: windows-latest
+    name: Build on Windows
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+
+    - name: Build executable
+      run: pyinstaller --onefile main.py
+
+    - name: Upload Windows binary
       uses: softprops/action-gh-release@v1
       with:
         files: dist/main.exe
