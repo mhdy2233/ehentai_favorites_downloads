@@ -248,7 +248,9 @@ else:
         soup = BeautifulSoup(ceshi.text, 'html.parser')
         favorites_ = [x.get("title") for x in soup.find_all('div', class_="i")]
         while True:
-            favorites = input(f"{''.join([f'{y}. {x}\n' for x, y in zip(favorites_, range(0, len(favorites_) + 1))] + ['10. All\n'])}请选择需要下载的收藏夹: ")
+            options = ''.join([f'{y}. {x}\n' for x, y in zip(favorites_, range(0, len(favorites_) + 1))] + ['10. All\n'])
+            favorites = input(f"{options}请选择需要下载的收藏夹: ")
+
             if not int(favorites) in range(0, 11):
                 print("请输入0-10的数字")
             else:
