@@ -144,7 +144,7 @@ def download_url(gid,token,clarity,eh_cookie):
         "dltype": cc,
         "dlcheck": f"Download {clarity} Archive",  # 按钮对应的名字和按钮值
     }
-    arc_url = f"https://{"e-hentai" if domain == "1" else "exhentai"}.org/archiver.php?gid={gid}&token={token}"
+    arc_url = f"https://{('e-hentai' if domain == '1' else 'exhentai')}.org/archiver.php?gid={gid}&token={token}"
     response = requests.post(arc_url, data=payload, cookies=eh_cookie)
     # 对下载原始图像进行post请求
     if response.status_code == 200:
@@ -168,7 +168,7 @@ def refresh_url(gid, token, eh_cookie):
     payload = {
         "invalidate_sessions": 1,
     }
-    arc_url = f"https://{"e-hentai" if domain == "1" else "exhentai"}.org/archiver.php?gid={gid}&token={token}"
+    arc_url = f"https://{('e-hentai' if domain == '1' else 'exhentai')}.org/archiver.php?gid={gid}&token={token}"
     response = requests.post(arc_url, data=payload, cookies=eh_cookie)
     if response.status_code == 200:
         return True
@@ -212,7 +212,7 @@ else:
 
 print("测试cookie中, 请稍等...")
 try:
-    ceshi = requests.get(url=f"https://{"e-hentai" if domain == "1" else "exhentai"}.org/favorites.php", cookies=cookie, proxies=proxy, timeout=20)
+    ceshi = requests.get(url=f"https://{('e-hentai' if domain == '1' else 'exhentai')}.org/favorites.php", cookies=cookie, proxies=proxy, timeout=20)
 except Exception as e:
     print(f"程序发生错误: {e}")
     input("")
@@ -254,7 +254,7 @@ else:
             else:
                 break
 
-        url = f"https://{"e-hentai" if domain == "1" else "exhentai"}.org/favorites.php?favcat={favorites}"
+        url = f"https://{('e-hentai' if domain == '1' else 'exhentai')}.org/favorites.php?favcat={favorites}"
         download_urls = []
         while True:
             fav = requests.get(url=url, cookies=cookie, proxies=proxy, timeout=20)
