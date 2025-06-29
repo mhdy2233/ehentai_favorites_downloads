@@ -1,6 +1,7 @@
 name: Build Python Executable
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'v*'
