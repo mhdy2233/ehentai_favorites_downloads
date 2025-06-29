@@ -1,9 +1,7 @@
 name: Build Python Executable
 
 on:
-  push:
-    tags:
-      - 'v*'  # 或者根据需要手动触发 workflow
+  workflow_dispatch:
 
 jobs:
   build-linux:
