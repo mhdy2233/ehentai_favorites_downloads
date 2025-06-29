@@ -3,8 +3,7 @@ name: Build Python Executable
 on:
   push:
     tags:
-      - 'v*'
-  workflow_dispatch:
+      - 'v*'  # 或者根据需要手动触发 workflow
 
 jobs:
   build-linux:
@@ -27,12 +26,11 @@ jobs:
     - name: Build executable
       run: pyinstaller --onefile main.py
 
-    - name: Upload Linux binary
-      uses: softprops/action-gh-release@v1
+    - name: Upload Linux binary as artifact
+      uses: actions/upload-artifact@v2
       with:
-        files: dist/main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: linux-executable
+        path: dist/main
 
   build-windows:
     runs-on: windows-latest
@@ -54,9 +52,8 @@ jobs:
     - name: Build executable
       run: pyinstaller --onefile main.py
 
-    - name: Upload Windows binary
-      uses: softprops/action-gh-release@v1
+    - name: Upload Windows binary as artifact
+      uses: actions/upload-artifact@v2
       with:
-        files: dist/main.exe
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: windows-executable
+        path: dist/main.exe
